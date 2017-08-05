@@ -1,0 +1,11 @@
+---
+- name: This playbook sets up a GeoNetwork infrastructure
+  hosts: vagrant
+  sudo: true
+  sudo_user: root
+
+  vars_files:
+    - vars/default.yml
+
+  roles:
+    - tomcat
