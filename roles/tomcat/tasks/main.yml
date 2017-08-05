@@ -1,0 +1,5 @@
+- name: installing dependencies
+  apt: pkg={{ item }} state=installed update_cache=yes
+  with_items:
+  - tomcat8
+  - tomcat8-admin
