@@ -1,0 +1,4 @@
+---
+dependencies:
+  - { role: tomcat, tags: tomcat }
+  - { role: apache, tags: apache }
