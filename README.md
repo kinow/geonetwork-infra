@@ -13,3 +13,7 @@ The playbook is developed and tested with Vagrant and VirtualBox, on a Linux com
 * [geOrchestra](http://www.georchestra.org/)
 * [Vagrant](https://www.virtualbox.org/)
 * [VirtualBox](https://www.vagrantup.com/)
+
+* [A Geonetwork Docker](https://github.com/docker-library/repo-info/blob/master/repos/geonetwork/remote/3.2.1-postgres.md)
+* [NZ-OSM-Server scripts](https://github.com/kinow/nz-osm-server)
+* [geOrchestra infra automation](https://github.com/georchestra/ansible)
