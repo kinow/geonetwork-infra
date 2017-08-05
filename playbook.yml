@@ -1,4 +1,12 @@
 ---
+- name: Fix for Ubuntu/xenial64 and python2
+  hosts: all
+  gather_facts: False
+  tasks:
+    - name: install python 2
+      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+
+
 - name: This playbook sets up a GeoNetwork infrastructure
   hosts: vagrant
   sudo: true

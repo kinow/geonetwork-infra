@@ -41,6 +41,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ansible.limit = "all"
     # ... as referenced in our "hosts" file:
     ansible.inventory_path = "hosts"
+    # use sudo
+    ansible.sudo = true
     # ssh connection parameters for ansible:
     ansible.extra_vars = { ansible_ssh_host: '127.0.0.1', ansible_ssh_user: 'vagrant', ansible_ssh_port: 2222 }
   end
