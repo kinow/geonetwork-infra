@@ -3,7 +3,7 @@
     owner: tomcat8
     group: tomcat8
     state: directory
-    mode: 0750
+    mode: 0770
   notify: restart tomcat
 
 - name: download geonetwork war
