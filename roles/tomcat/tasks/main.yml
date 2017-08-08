@@ -1,3 +1,7 @@
+# move this to a common task
+- name: set data directory environment variable
+  lineinfile: dest=/etc/environment state=present regexp='^geonetwork_dir' line='geonetwork_dir={{ geonetwork_data_dir }}'
+
 - name: installing dependencies
   apt: pkg={{ item }} state=installed update_cache=yes
   with_items:
