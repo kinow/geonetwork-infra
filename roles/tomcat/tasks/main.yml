@@ -11,7 +11,7 @@
 - name: create setenv.sh
   copy:
     dest: "/usr/share/tomcat8/bin/setenv.sh"
-    content: "geonetwork_dir={{ geonetwork_data_dir }}"
+    content: 'CATALINA_OPTS="-Dgeonetwork.dir={{ geonetwork_data_dir }}"'
     force: yes
     owner: tomcat8
     group: tomcat8
