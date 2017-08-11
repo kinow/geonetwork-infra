@@ -1,5 +1,5 @@
 # move this to a common task
-- name: set data directory environment variable
+- name: set data directory environment variable in etc environment
   lineinfile: dest=/etc/environment state=present regexp='^geonetwork_dir' line='geonetwork_dir={{ geonetwork_data_dir }}'
 
 - name: installing dependencies
@@ -7,3 +7,14 @@
   with_items:
   - tomcat8
   - tomcat8-admin
+
+- name: create setenv.sh
+  copy:
+    dest: "/usr/share/tomcat8/bin/setenv.sh"
+    content: "geonetwork_dir={{ geonetwork_data_dir }}"
+    force: yes
+    owner: tomcat8
+    group: tomcat8
+    mode: 0755
+  notify: restart tomcat
+
