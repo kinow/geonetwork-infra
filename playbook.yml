@@ -6,15 +6,13 @@
     - name: install python 2
       raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
 
-- name: This playbook sets up a GeoNetwork infrastructure
-  hosts: vagrant
+- name: This playbook sets up a GeoNetwork server
+  hosts: geonetwork
   become: true
   become_method: sudo
   become_user: root
-
   vars_files:
     - vars/default.yml
-
   roles:
     - tomcat
     - geonetwork
