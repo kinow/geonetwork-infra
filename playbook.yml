@@ -1,6 +1,6 @@
 ---
 - name: Fix for Ubuntu/xenial64 and python2
-  hosts: all
+  hosts: geonetwork
   gather_facts: False
   tasks:
     - name: install python 2
