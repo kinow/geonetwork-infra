@@ -27,24 +27,24 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   # Postgres + Postgis VM
-  config.vm.define "postgres" do |postgres|
-    postgres.vm.box = "bento/ubuntu-16.04"
-    postgres.vm.box_check_update = false
+  # config.vm.define "postgres" do |postgres|
+  #   postgres.vm.box = "bento/ubuntu-16.04"
+  #   postgres.vm.box_check_update = false
 
-    postgres.vm.provider "virtualbox" do |vb|
-      vb.customize ["modifyvm", :id, "--memory", "2048"]
-      vb.customize ["modifyvm", :id, "--cpus", "1"]
-    end
+  #   postgres.vm.provider "virtualbox" do |vb|
+  #     vb.customize ["modifyvm", :id, "--memory", "2048"]
+  #     vb.customize ["modifyvm", :id, "--cpus", "1"]
+  #   end
 
-    postgres.vm.network :public_network
-    postgres.vm.network "private_network", ip: "192.168.100.200"
-    postgres.vm.network :forwarded_port, guest: 5432, host: 5432, id: "postgres"
-    postgres.vm.network "forwarded_port", guest: 22, host: 2223, auto_correct: true, id: "ssh"
-    postgres.ssh.guest_port = 2223
+  #   postgres.vm.network :public_network
+  #   postgres.vm.network "private_network", ip: "192.168.100.200"
+  #   postgres.vm.network :forwarded_port, guest: 5432, host: 5432, id: "postgres"
+  #   postgres.vm.network "forwarded_port", guest: 22, host: 2223, auto_correct: true, id: "ssh"
+  #   postgres.ssh.guest_port = 2223
 
-    # We do not care about security here and want to keep using the default insecure key:
-    config.ssh.insert_key = false
-  end
+  #   # We do not care about security here and want to keep using the default insecure key:
+  #   config.ssh.insert_key = false
+  # end
 
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "playbook.yml"
