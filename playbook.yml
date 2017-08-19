@@ -1,11 +1,4 @@
 ---
-- name: Fix for Ubuntu/xenial64 and python2
-  hosts: geonetwork
-  gather_facts: False
-  tasks:
-    - name: install python 2
-      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
-
 - name: This playbook sets up a GeoNetwork server
   hosts: geonetwork
   become: true
@@ -14,5 +7,6 @@
   vars_files:
     - vars/default.yml
   roles:
+    - common
     - tomcat
     - geonetwork
