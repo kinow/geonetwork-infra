@@ -5,9 +5,15 @@
     state: directory
     mode: 0770
 
+# - name: download geonetwork war
+#   sudo: yes
+#   shell: curl -fSL -o geonetwork.war https://sourceforge.net/projects/geonetwork/files/GeoNetwork_opensource/v{{ geonetwork_version }}/geonetwork.war && chown tomcat8:tomcat8 geonetwork.war && mv geonetwork.war /var/lib/tomcat8/webapps/
+#   args:
+#     creates: /var/lib/tomcat8/webapps/geonetwork.war
+#   notify: restart tomcat
+
+# For development only
 - name: download geonetwork war
   sudo: yes
-  shell: curl -fSL -o geonetwork.war https://sourceforge.net/projects/geonetwork/files/GeoNetwork_opensource/v{{ geonetwork_version }}/geonetwork.war && chown tomcat8:tomcat8 geonetwork.war && mv geonetwork.war /var/lib/tomcat8/webapps/
-  args:
-    creates: /var/lib/tomcat8/webapps/geonetwork.war
+  shell: cp /vagrant/geonetwork.war /var/lib/tomcat8/webapps/geonetwork.war
   notify: restart tomcat
