@@ -14,6 +14,7 @@
     group: tomcat8
     state: directory
     mode: 0755
+    recurse: yes
   notify: restart tomcat
 
 # - name: create setenv.sh
