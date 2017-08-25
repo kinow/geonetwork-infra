@@ -26,7 +26,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.ssh.insert_key = false
   end
 
-  Postgres + Postgis VM
+  # Postgres + Postgis VM
   config.vm.define "postgres" do |postgres|
     postgres.vm.box = "bento/ubuntu-16.04"
     postgres.vm.box_check_update = false
