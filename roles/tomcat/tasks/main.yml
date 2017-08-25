@@ -11,7 +11,7 @@
     state: directory
     mode: 0755
     recurse: yes
-  notify: restart tomcat
+  register: geonetwork.dir.changed
 
 - file:
     path: "{{ geonetwork_data_dir }}"
@@ -20,7 +20,25 @@
     state: directory
     mode: 0755
     recurse: yes
-  notify: restart tomcat
+  register: geonetwork.dir.changed
+
+- file:
+    path: "{{ geonetwork_data_dir }}/config-db/"
+    owner: tomcat8
+    group: tomcat8
+    state: directory
+    mode: 0755
+    recurse: yes
+  register: geonetwork.dir.changed
+
+- file:
+    path: "{{ geonetwork_data_dir }}/config-node/"
+    owner: tomcat8
+    group: tomcat8
+    state: directory
+    mode: 0755
+    recurse: yes
+  register: geonetwork.dir.changed
 
 - name: create setenv.sh
   copy:
@@ -29,4 +47,8 @@
     owner: tomcat8
     group: tomcat8
     mode: 0755
-  notify: restart tomcat
+  register: geonetwork.dir.changed
+
+- name: restart tomcat8
+  service: name=tomcat8 state=restarted
+  when: geonetwork.dir.changed

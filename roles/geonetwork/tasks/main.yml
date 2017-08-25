@@ -12,3 +12,17 @@
   args:
     creates: /var/lib/tomcat8/webapps/geonetwork.war
   notify: restart tomcat
+
+- copy:
+    src: "jdbc.properties"
+    dest: "{{ geonetwork_data_dir }}/config-db/jdbc.properties"
+    owner: tomcat8
+    group: tomcat8
+    mode: 0770
+
+- copy:
+    src: "srv.xml"
+    dest: "{{ geonetwork_data_dir }}/config-node/srv.xml"
+    owner: tomcat8
+    group: tomcat8
+    mode: 0770
