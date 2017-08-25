@@ -47,19 +47,19 @@
   sudo: true
   sudo_user: postgres
   postgresql_user: >
-    user={{database.user}}
-    password={{database.password}}
+    user={{database_user}}
+    password={{database_password}}
     role_attr_flags=CREATEDB,NOSUPERUSER
   tags: database
 
 - name: Create Geo Database.
   sudo_user: postgres
   postgresql_db: >
-    name={{database.geo_name}}
-    owner={{database.user}}
+    name={{database_geo_name}}
+    owner={{database_user}}
     login_host=localhost
-    login_user={{database.user}}
-    login_password={{database.password}}
+    login_user={{database_user}}
+    login_password={{database_password}}
     template=template_postgis
   tags:
     - database
