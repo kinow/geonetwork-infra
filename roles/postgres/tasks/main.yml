@@ -1,0 +1,66 @@
+# From: https://gist.github.com/romanlv/91195b41087ba2d94eee
+
+- name: Add postgres repository
+  apt_repository: repo='deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main' state=present
+
+- name: Add postgres repository key
+  apt_key: url=http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc state=present
+
+- name: Install postgresql
+  apt: pkg=postgresql-9.6 state=present force=yes
+
+- name: Start postgresql server
+  service: name=postgresql state=started enabled=yes
+
+- name: Install Packages
+  apt: >
+    pkg={{item}}
+    state=installed
+    update-cache=yes
+  with_items:
+    - build-essential
+    - python-dev
+    - python-setuptools
+    - python-psycopg2
+    - postgresql-contrib-9.6
+    - postgresql-9.6-postgis-2.3
+    - libpq-dev
+
+# based on http://trac.osgeo.org/postgis/wiki/UsersWikiPostGIS21UbuntuPGSQL93Apt
+
+- name: ensure template_postgis database exists
+  sudo_user: postgres
+  postgresql_db: name=template_postgis state=present
+  register: createdb_template_postgis
+
+- name: make template_postgis a template
+  sudo_user: postgres
+  command: psql -d template_postgis -c "UPDATE pg_database SET datistemplate=true WHERE datname='template_postgis';"
+  when: createdb_template_postgis.changed
+
+- name: enable postgis extension 
+  sudo_user: postgres
+  command: psql -d template_postgis -c "CREATE EXTENSION postgis;"
+  when: createdb_template_postgis.changed
+
+- name: Create Database User
+  sudo: true
+  sudo_user: postgres
+  postgresql_user: >
+    user={{database.user}}
+    password={{database.password}}
+    role_attr_flags=CREATEDB,NOSUPERUSER
+  tags: database
+
+- name: Create Geo Database.
+  sudo_user: postgres
+  postgresql_db: >
+    name={{database.geo_name}}
+    owner={{database.user}}
+    login_host=localhost
+    login_user={{database.user}}
+    login_password={{database.password}}
+    template=template_postgis
+  tags:
+    - database
+    - create 
