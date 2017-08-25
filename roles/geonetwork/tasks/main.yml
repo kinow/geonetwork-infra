@@ -16,3 +16,5 @@
 - name: download geonetwork war
   sudo: yes
   shell: cp /vagrant/geonetwork.war /var/lib/tomcat8/webapps/geonetwork.war
+  args:
+    creates: /var/lib/tomcat8/webapps/geonetwork.war
