@@ -5,13 +5,22 @@
   - tomcat8-admin
 
 - file: 
-#    path: "/var/lib/tomcat8/"
+    path: "/var/lib/tomcat8/"
+    owner: tomcat8
+    group: tomcat8
+    state: directory
+    mode: 0755
+    recurse: yes
+  notify: restart tomcat
+
+- file:
     path: "{{ geonetwork_data_dir }}"
     owner: tomcat8
     group: tomcat8
     state: directory
     mode: 0755
     recurse: yes
+  notify: restart tomcat
 
 - name: create setenv.sh
   copy:
