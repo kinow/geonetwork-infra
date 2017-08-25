@@ -17,6 +17,16 @@
     recurse: yes
   notify: restart tomcat
 
+- name: create setenv.sh
+  copy:
+    dest: "/usr/share/tomcat8/bin/setenv.sh"
+    content: 'CATALINA_OPTS="-Xms1046M -Xmx1046M"'
+    force: yes
+    owner: tomcat8
+    group: tomcat8
+    mode: 0755
+  notify: restart tomcat
+
 # - name: create setenv.sh
 #   copy:
 #     dest: "/usr/share/tomcat8/bin/setenv.sh"
