@@ -13,16 +13,32 @@
     creates: /var/lib/tomcat8/webapps/geonetwork.war
   notify: restart tomcat
 
+- wait_for:
+    path: /var/lib/tomcat8/webapps/geonetwork/WEB-INF/config-db/
+    # maximum number of seconds to wait for
+    timeout: 600
+
+- wait_for:
+    path: /var/lib/tomcat8/webapps/geonetwork/WEB-INF/config-node/
+    # maximum number of seconds to wait for
+    timeout: 600
+
 - copy:
     src: "jdbc.properties"
-    dest: "{{ geonetwork_data_dir }}/config-db/jdbc.properties"
+    dest: "/var/lib/tomcat8/webapps/geonetwork/WEB-INF/config-db/jdbc.properties"
     owner: tomcat8
     group: tomcat8
     mode: 0770
+  register: tomcatfiles
 
 - copy:
     src: "srv.xml"
-    dest: "{{ geonetwork_data_dir }}/config-node/srv.xml"
+    dest: "/var/lib/tomcat8/webapps/geonetwork/WEB-INF/config-node/srv.xml"
     owner: tomcat8
     group: tomcat8
     mode: 0770
+  register: tomcatfiles
+
+- name: restart tomcat8
+  service: name=tomcat8 state=restarted
+  when: tomcatfiles.changed

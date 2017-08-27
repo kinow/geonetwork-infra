@@ -22,24 +22,6 @@
     recurse: yes
   register: geonetwork.dir.changed
 
-- file:
-    path: "{{ geonetwork_data_dir }}/config-db/"
-    owner: tomcat8
-    group: tomcat8
-    state: directory
-    mode: 0755
-    recurse: yes
-  register: geonetwork.dir.changed
-
-- file:
-    path: "{{ geonetwork_data_dir }}/config-node/"
-    owner: tomcat8
-    group: tomcat8
-    state: directory
-    mode: 0755
-    recurse: yes
-  register: geonetwork.dir.changed
-
 - name: create setenv.sh
   copy:
     dest: "/usr/share/tomcat8/bin/setenv.sh"
@@ -47,8 +29,8 @@
     owner: tomcat8
     group: tomcat8
     mode: 0755
-  register: geonetwork.dir.changed
+  register: geonetworkdir
 
 - name: restart tomcat8
   service: name=tomcat8 state=restarted
-  when: geonetwork.dir.changed
+  when: geonetworkdir.changed
