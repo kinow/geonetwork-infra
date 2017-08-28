@@ -23,8 +23,8 @@
     # maximum number of seconds to wait for
     timeout: 600
 
-- copy:
-    src: "jdbc.properties"
+- template:
+    src: "jdbc.properties.j2"
     dest: "/var/lib/tomcat8/webapps/geonetwork/WEB-INF/config-db/jdbc.properties"
     owner: tomcat8
     group: tomcat8
