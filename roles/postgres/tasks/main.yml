@@ -64,3 +64,25 @@
   tags:
     - database
     - create 
+
+- name: Configure PostgreSQL users
+  template:
+    src: "pga_hba.conf.j2"
+    dest: "/etc/postgresql/9.6/main/pg_hba.conf"
+    owner: postgres
+    group: postgres
+    mode: 0640
+  register: postgresfiles
+ 
+- name: Configure PostgreSQL listen
+  template:
+    src: "postgresql.conf.j2"
+    dest: "/etc/postgresql/9.6/main/postgresql.conf"
+    owner: postgres
+    group: postgres
+    mode: 0644
+  register: postgresfiles
+
+- name: restart postgresql
+  service: name=postgresql state=restarted
+  when: postgresfiles.changed
