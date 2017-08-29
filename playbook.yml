@@ -1,4 +1,6 @@
 ---
+# to active fact gathering
+# to see all properties ansible -m setup postgres
 - hosts: all
   tasks: []
 
@@ -20,7 +22,7 @@
   vars_files:
     - vars/default.yml
   vars:
-    tomcat_ip: "{{ hostvars[groups['geonetwork'][0]]['ansible_default_ipv4']['address'] }}"
+    tomcat_ip: "{{ hostvars[groups['geonetwork'][0]]['ansible_all_ipv4_addresses'][2] }}"
   roles:
     - postgres
 
@@ -42,7 +44,7 @@
   vars_files:
     - vars/default.yml
   vars:
-    db_ip: "{{ hostvars[groups['postgres'][0]]['ansible_default_ipv4']['address'] }}"
+    db_ip: "{{ hostvars[groups['postgres'][0]]['ansible_all_ipv4_addresses'][2] }}"
   roles:
     - tomcat
     - geonetwork
