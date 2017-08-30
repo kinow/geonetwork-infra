@@ -10,8 +10,12 @@
   become: true
   become_method: sudo
   become_user: root
+  vars:
+    security_ufw_allowed_incoming_tcp_ports:
+    - 5432
   roles:
     - common
+    - security
 
 - name: Set up a PostgreSQL/PostGIS server
   hosts: postgres
@@ -32,8 +36,12 @@
   become: true
   become_method: sudo
   become_user: root
+  vars:
+    security_ufw_allowed_incoming_tcp_ports:
+    - 8080
   roles:
     - common
+    - security
 
 - name: Set up a GeoNetwork server
   hosts: geonetwork
