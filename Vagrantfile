@@ -38,7 +38,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     geonetwork.vm.network :public_network
     geonetwork.vm.network "private_network", ip: "192.168.100.100"
-    geonetwork.vm.network :forwarded_port, guest: 8080, host: 9090, id: "tomcat"
+    geonetwork.vm.network :forwarded_port, guest: 80, host: 8888, id: "nginx"
     geonetwork.vm.network "forwarded_port", guest: 22, host: 2222, auto_correct: true, id: "ssh"
     geonetwork.ssh.guest_port = 2222
 
