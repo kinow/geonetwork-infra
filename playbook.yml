@@ -13,6 +13,7 @@
   vars:
     security_ufw_allowed_incoming_tcp_ports:
     - 5432
+    - 22
   roles:
     - common
     - security
@@ -26,7 +27,10 @@
   vars_files:
     - vars/default.yml
   vars:
-    tomcat_ip: "{{ hostvars[groups['geonetwork'][0]]['ansible_all_ipv4_addresses'][2] }}"
+# Vagrant...
+#    tomcat_ip: "{{ hostvars[groups['geonetwork'][0]]['ansible_all_ipv4_addresses'][2] }}"
+# VM
+    tomcat_ip: "{{ hostvars[groups['geonetwork'][0]]['ansible_all_ipv4_addresses'][0] }}"
   roles:
     - postgres
 
@@ -39,6 +43,7 @@
   vars:
     security_ufw_allowed_incoming_tcp_ports:
     - 80
+    - 22
   roles:
     - common
     - security
@@ -52,8 +57,14 @@
   vars_files:
     - vars/default.yml
   vars:
-    db_ip: "{{ hostvars[groups['postgres'][0]]['ansible_all_ipv4_addresses'][2] }}"
-    tomcat_ip: "{{ hostvars[groups['geonetwork'][0]]['ansible_all_ipv4_addresses'][2] }}"
+# Vagrant
+#    db_ip: "{{ hostvars[groups['postgres'][0]]['ansible_all_ipv4_addresses'][2] }}"
+# VM
+    db_ip: "{{ hostvars[groups['postgres'][0]]['ansible_all_ipv4_addresses'][0] }}"
+# Vagrant
+#    tomcat_ip: "{{ hostvars[groups['geonetwork'][0]]['ansible_all_ipv4_addresses'][2] }}"
+# VM
+    tomcat_ip: "{{ hostvars[groups['geonetwork'][0]]['ansible_all_ipv4_addresses'][0] }}"
     nginx_remove_default_vhost: true
     nginx_vhosts:
       - listen: "80 default_server"
