@@ -1,4 +1,4 @@
-geonetwork_version: 3.2.1
+geonetwork_version: 3.2.2
 geonetwork_data_dir: /data/geonetwork
 
 database_user: geonetwork
